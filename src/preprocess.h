@@ -50,6 +50,28 @@ POINT_CLOUD_REGISTER_POINT_STRUCT(velodyne_ros::Point,
         (uint16_t, ring, ring)
 )
 
+namespace livox_ros {
+  struct EIGEN_ALIGN16 Point {
+      PCL_ADD_POINT4D;
+      float intensity;
+      uint8_t tag;
+      uint8_t line;
+      double timestamp;
+
+      EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+  };
+}  // namespace livox_ros
+
+POINT_CLOUD_REGISTER_POINT_STRUCT(livox_ros::Point,
+    (float, x, x)
+    (float, y, y)
+    (float, z, z)
+    (float, intensity, intensity)
+    (std::uint8_t, tag, tag)
+    (std::uint8_t, line, line)
+    (double, timestamp, timestamp)
+)
+
 namespace ouster_ros {
   struct EIGEN_ALIGN16 Point {
       PCL_ADD_POINT4D;
@@ -141,6 +163,7 @@ class Preprocess
 
   private:
   void avia_handler(const livox_ros_driver::CustomMsg::ConstPtr &msg);
+  void livox_handler(const sensor_msgs::PointCloud2::ConstPtr &msg);
   void oust_handler(const sensor_msgs::PointCloud2::ConstPtr &msg);
   void velodyne_handler(const sensor_msgs::PointCloud2::ConstPtr &msg);
   void velodyne_handler_kitti(const sensor_msgs::PointCloud2::ConstPtr &msg);

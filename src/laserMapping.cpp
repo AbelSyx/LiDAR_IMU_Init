@@ -1214,7 +1214,7 @@ int main(int argc, char **argv) {
                     state.bias_a = Init_LI->get_acc_bias();
 
 
-                    if (lidar_type != AVIA)
+                    if (lidar_type != AVIA || lidar_type != LIVOX_ROS)
                         cut_frame_num = 2;
 
                     time_lag_IMU_wtr_lidar = Init_LI->get_total_time_lag(); //Compensate IMU's time in the buffer
